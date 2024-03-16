@@ -3,32 +3,80 @@ const { UserModel } = require("../models/users.model");
 const { BookModel } = require("../models/books.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+// const cookieParser = require('cookie-parser');
 
 const resolvers = {
   Query: {
     async books() {
       return await BookModel.find();
     },
-    users: async () => await UserModel.findAll(),
+    async users() {await UserModel.find()},
   },
   Mutation: {
-    async addBook(_, { bookInput: { title, author, description } }) {
+    async addBook(_, { bookInput},{user}) {
+      // Check if user is logged in
+      if (!user) {
+        throw new Error("Unauthorized: User not logged in");
+      }
+
+      // Check if user has admin role
+      if (user.role !== "admin") {
+        throw new Error("Unauthorized: User is not an admin");
+      }
+
+      // User is logged in and has admin role, so add book
+      const { title, author, description } = bookInput;
       const newBook = new BookModel({
-        title: title,
-        author: author,
-        description: description,
+        title,
+        author,
+        description,
       });
-      const result = await newBook.save();
-      console.log(result);
-      return {
-        id: result.id,
-        ...result._doc,
-      };
+      const savedBook = await newBook.save();
+      return savedBook;
     },
 
-    async deleteBook(_, { ID }) {
-      await BookModel.deleteOne({ _id: ID });
-    },
+    deleteBook: async (_, { id }, { user }) => {
+        // Check if user is logged in
+        if (!user) {
+          throw new Error("Unauthorized: User not logged in");
+        }
+  
+        // Check if user is admin
+        if (user.role !== "admin") {
+          throw new Error("Unauthorized: User is not an admin");
+        }
+  
+        // User is logged in and is an admin, so delete book
+        const deletedBook = await BookModel.findByIdAndDelete(id);
+        if (!deletedBook) {
+          throw new Error("Book not found");
+        }
+  
+        return deletedBook;
+      },
+      updateBook: async (_, { id, edits }, { user }) => {
+        // Check if user is logged in
+        if (!user) {
+          throw new Error("Unauthorized: User not logged in");
+        }
+  
+        // Check if user is admin
+        if (user.role !== "admin") {
+          throw new Error("Unauthorized: User is not an admin");
+        }
+  
+        // Find the book by ID
+        const existingBook = await BookModel.findById(id);
+        if (!existingBook) {
+          throw new Error("Book not found");
+        }
+  
+        // Update the book with the provided edits
+        Object.assign(existingBook, edits);
+        const updatedBook = await existingBook.save();
+  
+        return updatedBook;
+      },
 
     // User registration
     async register(_, { userInput: { username, email, password, role } }) {
@@ -70,6 +118,18 @@ const resolvers = {
 
       return { token, user };
     },
+    logout: (_, __, { user }) => {
+        // Check if the user is authenticated
+        if (!user) {
+            throw new Error("Unauthorized: User Already Logged Out");
+        }
+        
+        // Perform any necessary logout actions (e.g., clearing tokens)
+        // Here, you might clear the token from local storage or perform any other cleanup
+    
+        // Return a message indicating successful logout
+        return `User ${user.username} has been logged out`;
+    },
   },
 };
 
@@ -77,9 +137,7 @@ const resolvers = {
 const generateToken = (user) => {
   const token = jwt.sign(
     {
-      userId: user.id,
-      email: user.email,
-      role: user.role,
+      userId: user.id
     },
     "masai",
     { expiresIn: "1h" } // Token expiration time

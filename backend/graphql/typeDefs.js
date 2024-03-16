@@ -24,7 +24,7 @@ type AuthPayload {
 
 input BookInput {
   title: String!
-  author: String!
+  author: String
   description: String!
 }
 
@@ -43,11 +43,11 @@ type Query {
 type Mutation {
   addBook(bookInput: BookInput): Book!
   deleteBook(id:ID!):Book!
-  updateBook(id:ID!,edits:EditBookInput!):Book
+  updateBook(id:ID!,edits:EditBookInput!):Book!
 
   register(userInput: UserInput!): User!
   login(email: String!, password: String!): AuthPayload!
-  logout: Boolean!
+  logout: String!
 }
 
 # type Mutation{
