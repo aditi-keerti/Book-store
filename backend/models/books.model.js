@@ -1,9 +1,11 @@
 const mongoose=require('mongoose');
 
 const bookSchema=mongoose.Schema({
-    bookname:String,
+    title:String,
     author:String,
-    genre:String
+    description:String
+},{
+    versionKey:false
 })
 const BookModel=mongoose.model('book',bookSchema);
 
