@@ -8,7 +8,6 @@ const typeDefs = gql`
     description: String!
     rentPrice: Float!
     buyPrice: Float!
-    owner: User!
     status: String!
   }
 
@@ -54,7 +53,6 @@ const typeDefs = gql`
     description: String
     rentPrice: Float
     buyPrice: Float
-    owner: ID
     status: String
   }
 
@@ -62,13 +60,14 @@ const typeDefs = gql`
     books: [Book]!
     users: [User]!
   }
-
+  
   type Mutation {
     addBook(bookInput: BookInput): Book!
     deleteBook(id: ID!): Book!
     updateBook(id: ID!, edits: EditBookInput!): Book!
     buyBook(bookId: ID!): Book!
     rentBook(bookId: ID!): Book!
+    returnBook(bookId: ID!): Book!
 
     register(userInput: UserInput!): User!
     login(email: String!, password: String!): AuthPayload!

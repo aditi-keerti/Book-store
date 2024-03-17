@@ -69,7 +69,7 @@ const resolvers = {
         if (!deletedBook) {
           throw new Error("Book not found");
         }
-  
+    
         return deletedBook;
       },
       updateBook: async (_, { id, edits }, { user }) => {
@@ -98,25 +98,22 @@ const resolvers = {
       buyBook: async (_, { bookId }, { user }) => {
         // Check if user is authorized to buy a book (optional)
         if (user.role !== 'user') {
-          throw new Error('Only users can buy books');
+          throw new Error('Only users can rent books');
         }
-      
-        // Find the book by ID
         const book = await BookModel.findById(bookId);
-      
-        // Check if the book is available
         if (book.status !== 'Available') {
           throw new Error('This book is not available for purchase.');
           // Book is not available for purchase
         }
-        
-        // Update the status of the book to 'sold'
-        await BookModel.findByIdAndUpdate(bookId, { status: 'sold' });
-      
-        // Add the book to the user's 'booksOwned' array
-        user.booksOwned.push(bookId);
+        // Find the book by ID and update its status to 'rented'
+        await BookModel.findByIdAndUpdate(bookId, { status: 'sold' }, { new: true });
+  
+        // Add the book to the user's 'booksRented' array
+        console.log(bookId);
+        user.booksRented.push(bookId);
+
         await user.save();
-      
+  
         return book;
       }
       ,
@@ -134,7 +131,32 @@ const resolvers = {
             await BookModel.findByIdAndUpdate(bookId, { status: 'rented' }, { new: true });
       
             // Add the book to the user's 'booksRented' array
+            console.log(bookId);
             user.booksRented.push(bookId);
+
+            await user.save();
+      
+            return book;
+          },
+          returnBook: async (_, { bookId }, {user}) => {
+            // Check if user is authorized to rent a book (optional)
+            
+            const book = await BookModel.findById(bookId);
+            if (book.status !== 'rented') {
+              throw new Error('This book is not Rented Yet.');
+              // Book is not available for purchase
+            }
+            if (!user.booksRented.includes(bookId)) {
+              throw new Error("Book is not rented by the user");
+            }
+    
+            // Find the book by ID and update its status to 'rented'
+            await BookModel.findByIdAndUpdate(bookId, { status: 'Available' }, { new: true });
+      
+            // Add the book to the user's 'booksRented' array
+            // console.log(bookId);
+            // user.booksRented.push(bookId);
+            user.booksRented = user.booksRented.filter(bk => bk !== bookId);
             await user.save();
       
             return book;
