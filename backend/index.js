@@ -26,7 +26,7 @@ const server = new ApolloServer({
     } catch (error) {
       console.error("Error decoding token:", error.message);
     }
-    return { user };
+    return {user};
   }
 });
 

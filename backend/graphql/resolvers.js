@@ -10,7 +10,22 @@ const resolvers = {
     async books() {
       return await BookModel.find();
     },
-    async users(){await UserModel.find()},
+    users: async (parent, args, context) => {
+      // Check if the authenticated user has the admin role
+      if (context.user && context.user.role === 'admin') {
+        // Allow admins to see user details
+        try {
+          // Fetch users from UserModel
+          const users = await UserModel.find();
+          return users;
+        } catch (error) {
+          throw new Error('Error fetching users: ' + error.message);
+        }
+      } else {
+        // If not an admin, restrict access
+        throw new Error('Unauthorized access: Only administrators can view user details.');
+      }
+    }
   },
   Mutation: {
     async addBook(_, { bookInput},{user}) {
