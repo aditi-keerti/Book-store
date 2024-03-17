@@ -283,5 +283,6 @@ For detailed information on the API endpoints and how to interact with them, ref
 - **Express.js**: Web application framework for Node.js.
 - **Apollo Server Express**: GraphQL server for Node.js.
 - **MongoDB**: NoSQL database for data storage.
+- **GraphQL**: Query language and runtime for APIs.
 
 Enjoy seamless book management and access with the Book Management System API today!
