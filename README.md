@@ -11,6 +11,16 @@ Explore the GraphQL Operations with our Postman collection:
 Check out the deployed Book Management System:
 [Deployed Application](https://bookstore-qcfg.onrender.com)
 
+### User Credentials
+
+- **Username**: aditi@gmail.com
+- **Password**: aditi
+
+### Admin Credentials
+
+- **Username**: shraddha@gmail.com
+- **Password**: aditi
+
 
 ## Features
 - **Admin Privileges**: Administrators have full control over managing books within the system.
