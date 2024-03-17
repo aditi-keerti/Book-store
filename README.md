@@ -273,10 +273,6 @@ Some GraphQL routes require authentication. You need to include an Authorization
 - **Borrow or Buy Books**: Choose the desired book and opt to either borrow it or buy it, based on your preference and availability.
 - **Administrator Actions**: If you're an administrator, log in to access advanced features like adding, updating, or deleting books from the system and only a admin can create another admin.
 
-## Postman Documentation
-
-For detailed information on the API endpoints and how to interact with them, refer to the [Postman Documentation](#postman-documentation).
-
 ## Technology Stack
 
 - **Node.js**: Backend JavaScript runtime.
