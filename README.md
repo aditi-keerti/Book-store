@@ -1,26 +1,7 @@
 # Book Management System
 
-Welcome to the Book Management System API, a powerful solution for efficiently managing books, borrowing, and purchasing. This API provides administrators with comprehensive tools for book management while enabling users to seamlessly borrow, buy, and explore books.
-   ### Postman Collection
-
-Explore the GraphQL Operations with our Postman collection:
-[Book Management System API Collection](https://api.postman.com/collections/31955255-b7e4cc5a-5f57-4ed6-8698-b8fa62e5dbab?access_key=PMAT-01HS7554ETDSYA41HH9WQ9M8KP)
-
-### Deployment
-
-Check out the deployed Book Management System:
-[Deployed Application](https://bookstore-qcfg.onrender.com)
-
-### User Credentials
-
-- **Username**: aditi@gmail.com
-- **Password**: aditi
-
-### Admin Credentials
-
-- **Username**: shraddha@gmail.com
-- **Password**: aditi
-
+Welcome to the Book Management System, a powerful solution for efficiently managing books, borrowing, and purchasing. This API provides administrators with comprehensive tools for book management while enabling users to seamlessly borrow, buy, and explore books. Built using Node.js and Express.js, the API leverages the power of Apollo Server Express for GraphQL implementation, allowing for efficient data retrieval and manipulation. With MongoDB as the backend NoSQL database, data storage and management are handled seamlessly, ensuring scalability and performance. Explore the endless possibilities of book management with our intuitive API.
+  
 
 ## Features
 - **Admin Privileges**: Administrators have full control over managing books within the system.
@@ -290,5 +271,26 @@ Some GraphQL routes require authentication. You need to include an Authorization
 - **Apollo Server Express**: GraphQL server for Node.js.
 - **MongoDB**: NoSQL database for data storage.
 - **GraphQL**: Query language and runtime for APIs.
+
+### Postman Collection
+
+Explore the GraphQL Operations with our Postman collection:
+[Book Management System API Collection](https://api.postman.com/collections/31955255-b7e4cc5a-5f57-4ed6-8698-b8fa62e5dbab?access_key=PMAT-01HS7554ETDSYA41HH9WQ9M8KP)
+
+### Deployment
+
+Check out the deployed Book Management System:
+[Deployed Application](https://bookstore-qcfg.onrender.com)
+
+### User Credentials
+
+- **Username**: aditi@gmail.com
+- **Password**: aditi
+
+### Admin Credentials
+
+- **Username**: shraddha@gmail.com
+- **Password**: aditi
+
 
 Enjoy seamless book management and access with the Book Management System API today!
