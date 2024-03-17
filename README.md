@@ -275,7 +275,7 @@ Some GraphQL routes require authentication. You need to include an Authorization
 ### Postman Collection
 
 Explore the GraphQL Operations with our Postman collection:
-[Book Management System API Collection](https://api.postman.com/collections/31955255-b7e4cc5a-5f57-4ed6-8698-b8fa62e5dbab?access_key=PMAT-01HS7554ETDSYA41HH9WQ9M8KP)
+[Book Management System API Collection](https://documenter.getpostman.com/view/31955255/2sA2xnyAUf)
 
 ### Deployment
 
