@@ -1,83 +1,79 @@
-const { ApolloServer, gql } = require("apollo-server-express");
+const { gql } = require("apollo-server-express");
 
+const typeDefs = gql`
+  type Book {
+    id: ID!
+    title: String!
+    author: String!
+    description: String!
+    rentPrice: Float!
+    buyPrice: Float!
+    owner: User!
+    status: String!
+  }
 
-const typeDefs=gql`
-type Book {
-  id: ID!
-  title: String!
-  author: String!
-  description: String!
-}
+  type User {
+    id: ID!
+    username: String!
+    email: String!
+    password: String!
+    role: String!
+    booksOwned: [Book]
+    booksRented: [Book]
+  }
 
-type User {
-  id: ID!
-  username: String!
-  email: String!
-  password: String!
-  role: String!
-}
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
 
-type AuthPayload {
-  token: String!
-  user: User!
-}
+  input BookInput {
+    title: String!
+    author: String!
+    description: String!
+    rentPrice: Float!
+    buyPrice: Float!
+  }
 
-input BookInput {
-  title: String!
-  author: String
-  description: String!
-}
+  input UserInput {
+    username: String!
+    email: String!
+    password: String!
+    role: String
+  }
 
-input UserInput {
-  username: String!
-  email: String!
-  password: String!
-  role: String
-}
+  input EditUserInput {
+    username: String
+    email: String
+    password: String
+  }
 
-type Query {
-  books: [Book]!
-  users: [User]!
-}
+  input EditBookInput {
+    title: String
+    author: String
+    description: String
+    rentPrice: Float
+    buyPrice: Float
+    owner: ID
+    status: String
+  }
 
-type Mutation {
-  addBook(bookInput: BookInput): Book!
-  deleteBook(id:ID!):Book!
-  updateBook(id:ID!,edits:EditBookInput!):Book!
+  type Query {
+    books: [Book]!
+    users: [User]!
+  }
 
-  register(userInput: UserInput!): User!
-  login(email: String!, password: String!): AuthPayload!
-  logout: String!
-}
+  type Mutation {
+    addBook(bookInput: BookInput): Book!
+    deleteBook(id: ID!): Book!
+    updateBook(id: ID!, edits: EditBookInput!): Book!
+    buyBook(bookId: ID!): Book!
+    rentBook(bookId: ID!): Book!
 
-# type Mutation{
-   
-#     # books k mutations
-#     addBook(book:AddBookInput):Book
-#     deleteBook(id:ID!):[Book]
-#     updateBook(id:ID!,edits:EditBookInput!):Book
-# }
-input UserInput{
-    username:String!
-    email:String!
-    password:String!
-    role:String
-}
-input EditUserInput{
-    username:String
-    email:String
-    password:String
-}
-input BookInput{
-    title:String!
-    author:String!
-    description:String!
-}
-input EditBookInput{
-    bookname:String
-    author:String
-    genre:String
-}
-`
+    register(userInput: UserInput!): User!
+    login(email: String!, password: String!): AuthPayload!
+    logout: String!
+  }
+`;
 
-module.exports={typeDefs}
+module.exports = { typeDefs };

@@ -8,7 +8,15 @@ const userSchema=mongoose.Schema({
         type: String,
         enum: ['admin', 'user'],
         default: 'user'
-      }
+      },
+    booksOwned: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book',
+    }],
+    booksRented:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
+    }]
 },{
     versionKey:false
 })
