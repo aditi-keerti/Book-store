@@ -284,13 +284,13 @@ Check out the deployed Book Management System:
 
 ### User Credentials
 
-- **Username**: aditi@gmail.com
-- **Password**: aditi
+- **email**: shraddha@gmail.com
+- **password**: aditi
 
 ### Admin Credentials
 
-- **Username**: shraddha@gmail.com
-- **Password**: aditi
+- **email**: aditi@gmail.com
+- **password**: aditi
 
 
 Enjoy seamless book management and access with the Book Management System API today!
